@@ -1,0 +1,13 @@
+/* pages/index/index.wxss */
+.content1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.click-btn {
+  width: 100%;
+}
+.shows-img {
+  width: 80%;
+}

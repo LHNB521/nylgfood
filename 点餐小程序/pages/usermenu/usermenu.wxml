@@ -1,0 +1,58 @@
+<!--client/pages/pay/pay.wxml-->
+<view style='background-color:#f6f6f6;width:100;height:20rpx;'></view>
+<view class='page-head-box'>
+  <view class="send-id" wx:if="{{idListShow}}"></view>
+  <view class='wel-title' bindtap="sendId">选择送餐地址+</view>
+</view>
+<view style='background-color:#f6f6f6;width:100;height:20rpx;'></view>
+<view class='contioner'>
+  <view class='page-info-down'>客官，这是您的菜单</view>
+</view>
+<view style='background-color:#f6f6f6;width:100;height:20rpx;'></view>
+<view class='contioner'>
+  <!-- <view class='myfont1'>客官，这是您的菜单</view> -->
+  <view class='menu-box'>
+    <view class='list-box' wx:for="{{myfoodsList}}" wx:key="{{item.gid}}">
+      <view class='list-item-box'>
+        <image class='item-img' src="{{serveraddr}}/images/{{item.gimg}}" data-gid="{{item.gid}}" bindtap='goinfo'></image>
+        <view class='item-info-box'>
+          <view class='item-name'>{{item.gname}}\n\n</view>
+          <text class='item-type'>\n*{{item.gcount}}</text>
+        </view>
+        <view class='item-price'>{{item.gprice*item.gcount}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='page-bottom'>
+  <view class='container-bottom-box'>
+    <view class='container-bottom-l'>总计：
+      <text class='myfont2'>{{sumprice}}</text>
+    </view>
+    <view class='container-bottom-r' bindtap='gopay'>去结账</view>
+  </view>
+</view>
+
+<page-container 
+  show="{{show}}"
+  position="{{position}}"
+  round="true"
+  duration="300"
+>
+  <view>
+    <view class="page-container-title">填写收货地址</view>
+    <view class="weui-cell weui-cell_input">
+      <span> 联系人 ：</span>
+      <input class="weui-input" type="nickname" bindinput="bindName" placeholder="请输入收货人的姓名"/>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <span> 手机号 ：</span>
+      <input class="weui-input" type="number" bindinput="bindName" placeholder="请输入收货人的手机号" maxlength="11"/>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <span> 详细地址 ：</span>
+      <input class="weui-input" type="text" bindinput="bindName" placeholder="请输入收货人详细地址"/>
+    </view>
+  </view>
+</page-container>

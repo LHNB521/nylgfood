@@ -1,0 +1,10 @@
+<!--pages/index/index.wxml-->
+<view class="content1">
+  <image class='shows-img' src='../img/show.png'></image>
+  <view class="userinfo">
+    <block>
+      <button wx:if="{{canIUseGetUserProfile}}" class='click-btn' type='primary'  bindtap="getUserProfile"> 微信登陆 </button>
+      <button wx:else type='primary' class='click-btn' type='primary' open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信登陆 </button>
+    </block>
+  </view>
+</view>
