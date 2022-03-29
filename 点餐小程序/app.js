@@ -139,7 +139,7 @@ App({
     isLogin: false,
     isAdmin: false,
     // serveraddr: "http://116.63.151.194:3000",
-    serveraddr: "http://192.168.137.1:3000",
+    serveraddr: "http://127.0.0.1:3000",
     cusid: null,
     isHaveOrder: false,
     limit: false,
