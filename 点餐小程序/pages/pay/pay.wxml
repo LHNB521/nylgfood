@@ -20,5 +20,5 @@
         </view>
  </view>
  <view class='page-bottom'>
-  <button class="weui-btn" bindtap="openToast" type="primary" disabled='{{isPay}}'>{{isPay ? '已支付':'确认支付'}}</button>
+  <button class="weui-btn" bindtap="openToast" type="primary" disabled='{{isPay}}'> {{isPay ? '已支付':'确认支付'}} </button>
  </view>

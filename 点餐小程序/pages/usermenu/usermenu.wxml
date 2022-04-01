@@ -2,7 +2,7 @@
 <view style='background-color:#f6f6f6;width:100;height:20rpx;'></view>
 <view class='page-head-box'>
   <view class="send-id" wx:if="{{idListShow}}"></view>
-  <view class='wel-title' bindtap="sendId">选择送餐地址+</view>
+  <view class='wel-title' bindtap="sendId">{{editText=='保存'?'添加收货人信息+':'修改收货人信息'}}</view>
 </view>
 <view style='background-color:#f6f6f6;width:100;height:20rpx;'></view>
 <view class='contioner'>

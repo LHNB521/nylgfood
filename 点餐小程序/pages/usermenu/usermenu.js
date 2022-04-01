@@ -41,17 +41,17 @@ Page({
           iphone: res.data.iphone,
           bindId: res.data.bindId
         })
+        this.saveOrBecome()
       }
     })
-    this.saveOrBecome()
   },
   // 保存还是修改
   saveOrBecome:function(){
-    console.log('00000000')
-    let name = this.data.sendMessage.name ? true : false
-    let iphone = this.data.sendMessage.iphone ? true : false
-    let bindId = this.data.sendMessage.bindId ? true : false
+    let name = this.data.name ? true : false
+    let iphone = this.data.iphone ? true : false
+    let bindId = this.data.bindId ? true : false
     if (name == false || iphone == false || bindId == false) {
+      console.log(this.data.name)
       this.setData({
         isSave: true,
         editText: '保存'
