@@ -37,7 +37,7 @@ router.get('/add', function (req, res, next) {
     var params = req.query || req.params
     var limit='false';
     var addSqlParams =[JSON.parse(params.admin).cusid,JSON.parse(params.admin).name,limit]
-    console.error(JSON.parse(params.admin));
+    console.error(addSqlParams);
     pool.getConnection(function (err, connection) {
         var data = {}
         connection.query(syscusSql.insert,addSqlParams,function (err, e) {

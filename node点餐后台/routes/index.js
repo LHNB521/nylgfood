@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* 获取主页. */
+/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '点餐后台系统' });
+  res.render('index', { title: 'Express' });
 });
 
 module.exports = router;

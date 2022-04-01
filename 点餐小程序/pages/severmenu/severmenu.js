@@ -29,7 +29,7 @@ Page({
     var that = this;
     // 微信发送接收数据
     wx.request({
-      url: app.globalData.serveraddr + '/admin',
+      url: app.globalData.serveraddr + '/fontadmin',
       data: {},
       success: res => {
         that.setData({
@@ -58,6 +58,7 @@ Page({
         });
       }
     });
+    // 获取订单
     wx.request({
       url: app.globalData.serveraddr + '/order/getOrderAdmin',
       success: res => {
@@ -173,9 +174,9 @@ Page({
       name: '',
     }
     admin.cusid = e.detail.value.id;
-    admin.name = '位管理员:' + e.detail.value.id;
+    admin.name = '管理员:' + e.detail.value.id;
     wx.request({
-      url: app.globalData.serveraddr + '/admin/add',
+      url: app.globalData.serveraddr + '/fontadmin/add',
       data: {
         admin: admin,
       },
@@ -192,7 +193,7 @@ Page({
   subtract: function (e) {
     console.log(e.target.dataset.id)
     wx.request({
-      url: app.globalData.serveraddr + '/admin/subtract',
+      url: app.globalData.serveraddr + '/fontadmin/subtract',
       data: {
         cusid: e.target.dataset.id,
       },

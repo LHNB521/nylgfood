@@ -50,7 +50,9 @@ var queryOrderDetail = function (connection, orderid) {
 }
 
 /* GET home page. */
+// 用户点单-订单添加（支付订单）
 router.post('/', function(req, res) {
+  console.log(req.body)
   pool.getConnection((err, connection) => {
     var params = req.body
     var foodlist = JSON.parse(params.foodlist)
@@ -89,7 +91,7 @@ router.post('/', function(req, res) {
     })
   })
 });
-
+// 用户查看订单
 router.get('/getOrders', function(req, res) {
   pool.getConnection((err, connection) => {
     var params = req.query || req.params
@@ -135,7 +137,7 @@ router.get('/getOrders', function(req, res) {
     })
   })
 });
-
+// 管理员获取未完成（正在处理）订单id
 router.get('/getOrderAdmin', function(req, res) {
   pool.getConnection(function (err, connection) {
     var cusOrderArr = []
@@ -159,7 +161,7 @@ router.get('/getOrderAdmin', function(req, res) {
     })
   })
 });
-
+// 订单取消操作
 router.get('/orderAdminCancel', function(req, res) {
   var params = req.query || req.params
   var orderid = params.orderid
@@ -183,7 +185,7 @@ router.get('/orderAdminCancel', function(req, res) {
     })
   })
 });
-
+// 订单完成操作
 router.get('/orderAdminOver', function(req, res) {
   var params = req.query || req.params
   var orderid = params.orderid

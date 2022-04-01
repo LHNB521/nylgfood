@@ -33,7 +33,7 @@
     <view class='container-bottom-r' bindtap='gopay'>去结账</view>
   </view>
 </view>
-
+<!--填写订单信息-->
 <page-container 
   show="{{show}}"
   position="{{position}}"
@@ -44,15 +44,18 @@
     <view class="page-container-title">填写收货地址</view>
     <view class="weui-cell weui-cell_input">
       <span> 联系人 ：</span>
-      <input class="weui-input" type="nickname" bindinput="bindName" placeholder="请输入收货人的姓名"/>
+      <input class="weui-input" type="nickname" bindinput="bindName" value="{{name}}" placeholder="请输入收货人的姓名"/>
     </view>
     <view class="weui-cell weui-cell_input">
       <span> 手机号 ：</span>
-      <input class="weui-input" type="number" bindinput="bindName" placeholder="请输入收货人的手机号" maxlength="11"/>
+      <input class="weui-input" type="number" bindinput="bindIphone" value="{{iphone}}" placeholder="请输入收货人的手机号" maxlength="11"/>
     </view>
     <view class="weui-cell weui-cell_input">
-      <span> 详细地址 ：</span>
-      <input class="weui-input" type="text" bindinput="bindName" placeholder="请输入收货人详细地址"/>
+      <span> 暗号 ：</span>
+      <input class="weui-input" type="text" bindinput="bindId" value="{{bindId}}" placeholder="请输入暗号"/>
+    </view>
+    <view>
+      <button class="weui-btn" bindtap="save" type="primary">{{editText}}</button>
     </view>
   </view>
 </page-container>

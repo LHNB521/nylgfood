@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点餐系统后台管理-人员管理</title>
+    <link rel="stylesheet" href="/admin/css/users.css">
+    <script src="/admin/js/users.js"></script>
+</head>
+
+<body style="background-color: #F6F6F6;">
+    <% include common/top.ejs%>
+        <div class="userDiv">
+            <div class="userTable">
+                <div class="userAdd">
+                    <button onclick="userAddChick('add')">添加</button>
+                </div>
+                <table border="1" cellspacing="0">
+                    <tr>
+                        <th>管理员昵称</th>
+                        <th>操作</th>
+                    </tr>
+                    <%for(var i=0;i<usersData.length;i++){%>
+                        <tr>
+                            <td>
+                                <%=usersData[i].NICKNAME%>
+                            </td>
+                            <td>
+                                <a href="?action=del&id=<%=usersData[i].CUSID%>" onclick="return confirm('确定删除？')">
+                                    <button>删除</button>
+                                </a>
+                            </td>
+                        </tr>
+                    <%}%>
+                </table>
+            </div>
+        </div>
+        <div class="userAddChick"> 
+            <h3 style="text-align: center;">添加管理员</h3>
+            <div style="margin: 20px 0px 20px 0px;">
+                <form action="#" method="post">
+                    <div>
+                        <span>新管理员账号：</span>
+                        <input type="text" name="cusid" placeholder="请输入微信号" style="height: 25px;" >
+                    </div>
+                    <div class="userAddChickButton userAddChickButtonAdd">
+                        <button onclick="userAddChick('close')">添加</button>
+                    </div>
+                </form>
+                <div class="userAddChickButton">
+                    <button onclick="userAddChick('close')">取消</button>
+                </div>
+            </div>
+
+        </div>
+
+</body>
+
+</html>

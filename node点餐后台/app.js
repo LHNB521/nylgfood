@@ -11,6 +11,7 @@ var menuRouter = require('./routes/menu')
 var orderRouter = require('./routes/order')
 var adminRouter = require('./routes/admin')
 var foodadminRouter = require('./routes/foodadmin')
+var saveMessage = require('./routes/savemessage')
 
 var app = express();
 
@@ -30,21 +31,27 @@ app.use('/users', usersRouter);
 app.use('/customer', customerRouter);
 app.use('/menu', menuRouter);
 app.use('/order', orderRouter);
-app.use('/admin', adminRouter);
+app.use('/fontadmin', adminRouter);
 app.use('/foodadmin', foodadminRouter);
-
-// 捕获404并转发给错误处理程序
+app.use('/savemessage',saveMessage);
+//跳转后台
+var adminIndex = require('./router/admin/index')();
+app.use('/admin', adminIndex);
+//静态文件的请求
+app.use(express.static('./static/'));
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-// 错误处理程序
+// error handler
 app.use(function(err, req, res, next) {
-  // 设置局部变量，只提供开发中的错误
+  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  // 呈现错误页面
+
+  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
+
 module.exports = app;

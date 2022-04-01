@@ -30,7 +30,7 @@
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
           <view class='container'>
-          <image class='head-img' src='../img/logo.png' bindtap="gotouser"></image>
+            <image class='head-img' src='../img/logo.png' bindtap="gotouser"></image>
             <view class='page-head-box'>
               <image class='add-img' src="../img/addicon.png" bindtap='open'></image>
             </view>

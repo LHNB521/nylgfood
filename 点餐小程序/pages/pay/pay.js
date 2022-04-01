@@ -26,7 +26,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(e) {
+  onLoad: function (e) {
 
     this.setData({
       sumprice: e.sumprice,
@@ -37,52 +37,52 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
-  openToast: function() {
+  openToast: function () {
     if (!this.data.isPay) {
       wx.showToast({
         title: '支付成功',
@@ -92,6 +92,8 @@ Page({
       this.setData({
         isPay: true
       })
+      console.log(this.data.foodlist)
+      console.log(app.globalData.cusid)
       wx.request({
         url: app.globalData.serveraddr + '/order',
         data: {
@@ -108,7 +110,7 @@ Page({
       })
     }
   },
-  radioChange: function(e) {
+  radioChange: function (e) {
 
     var radioItems = this.data.radioItems;
     for (var i = 0, len = radioItems.length; i < len; ++i) {
@@ -119,7 +121,7 @@ Page({
       radioItems: radioItems
     });
   },
-  goorder: function() {
+  goorder: function () {
     if (this.data.isPay) {
       wx.redirectTo({
         url: '../order/order'
