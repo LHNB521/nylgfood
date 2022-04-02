@@ -1,3 +1,6 @@
+/*
+    菜品添加修改
+*/ 
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');

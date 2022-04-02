@@ -93,7 +93,6 @@ Page({
         isPay: true
       })
       console.log(this.data.foodlist)
-      console.log(app.globalData.cusid)
       wx.request({
         url: app.globalData.serveraddr + '/order',
         data: {

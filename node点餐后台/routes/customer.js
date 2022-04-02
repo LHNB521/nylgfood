@@ -1,3 +1,6 @@
+/*
+    注册登录
+*/ 
 var express = require('express');
 var router = express.Router();
 var request = require('request')
@@ -22,7 +25,7 @@ var responseJSON = function(res, ret) {
 
 /* 获取openid //请修改下面的
  * appid=wxc449411fab1b45b8(我的微信小程序的id，已设置成自动获取不需要改)
- * secret=645cc9ba8cf29fc5fa683047e3ed859（每个人的密钥，需要到微信小程序平台中去获取，然后在下方标注处改一下）
+ * secret=1f3e06769760422f35793edbcff7e348（每个人的密钥，需要到微信小程序平台中去获取，然后在下方标注处改一下）
  * js_code:小程序传递过来的code属性
  */
 router.get('/getopenid', function(req, res, next) {

@@ -1,5 +1,5 @@
 var orderSql = {
-  insertCusOrder: 'INSERT INTO cusorders(ORDERID, CUSID, ORDERTIME, ORDERSTATE, ORDERTOTLEPRICE) VALUES(?, ?, ?, ?, ?)',
+  insertCusOrder: 'INSERT INTO cusorders(ORDERID, CUSID, ORDERTIME, ORDERSTATE, ORDERTOTLEPRICE, NAME, IPHONE, BINDID, FOODJSON) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)',
   insertOrderDetail: 'INSERT INTO orderdetail(GID, ORDERID, GNAME, GCOUNT, GPRICE, GTIME) VALUES(?, ?, ?, ?, ?, ?)',
   insertOverOrder: 'INSERT INTO overorder(ORDERID, CUSID, ORDERTIME, ORDERSTATE, ORDERTOTLEPRICE) VALUES(?, ?, ?, ?, ?)',
   queryAllCusOrder: 'SELECT * FROM cusorders',

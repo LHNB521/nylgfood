@@ -37,7 +37,6 @@ router.post('/',function (req,res){
     })
   })
   if(mycusid == CUSID){
-    console.log(mycusid)
     //如果有记录就修改
     pool.getConnection(function (err, connection) {
       connection.query(`UPDATE savemessage SET NAME='${NAME}' ,IPHONE='${IPHONE}'  ,BINDID='${BINDID}' where CUSID='${CUSID}'`, function (err, resp){

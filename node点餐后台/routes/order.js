@@ -1,3 +1,6 @@
+/*
+  用户下单
+*/ 
 var express = require('express');
 var router = express.Router();
 var dbConfig = require('../db/dbConfig')
@@ -49,13 +52,12 @@ var queryOrderDetail = function (connection, orderid) {
   })
 }
 
-/* GET home page. */
 // 用户点单-订单添加（支付订单）
 router.post('/', function(req, res) {
-  console.log(req.body)
   pool.getConnection((err, connection) => {
     var params = req.body
     var foodlist = JSON.parse(params.foodlist)
+    var sendMessage = foodlist[0]
     var mycusid = params.cusid
     var orderid = uuid.v1()
     var cusorders = {}
@@ -63,9 +65,14 @@ router.post('/', function(req, res) {
     var orderTotleTime = 0
     var data = {}
     var _res = res
-    for (let i = 0; i < foodlist.length; i++) {
+    var foodjson = []
+    for (let i = 1; i < foodlist.length; i++) {
+      let foodObj = {}
+      foodObj.name = foodlist[i].gname
+      foodObj.num = foodlist[i].gcount
       totlePrice += foodlist[i].gprice*foodlist[i].gcount
       orderTotleTime += foodlist[i].gtime*foodlist[i].gcount
+      foodjson.push(foodObj)
       insertOrderDetail(i, connection, data, orderid, foodlist)
     }
     cusorders.ORDERID = orderid
@@ -73,8 +80,11 @@ router.post('/', function(req, res) {
     cusorders.ORDERTIME = orderTotleTime
     cusorders.ORDERSTATE = 1
     cusorders.ORDERTOTLEPRICE = totlePrice
-    
-    connection.query(orderSql.insertCusOrder, [cusorders.ORDERID, cusorders.CUSID, cusorders.ORDERTIME, cusorders.ORDERSTATE, cusorders.ORDERTOTLEPRICE], function (err, result) {
+    cusorders.NAME = sendMessage.name
+    cusorders.IPHONE = sendMessage.iphone
+    cusorders.BINDID = sendMessage.bindId
+    cusorders.FOODJSON = JSON.stringify(foodjson)
+    connection.query(orderSql.insertCusOrder, [cusorders.ORDERID, cusorders.CUSID, cusorders.ORDERTIME, cusorders.ORDERSTATE, cusorders.ORDERTOTLEPRICE, cusorders.NAME, cusorders.IPHONE, cusorders.BINDID, cusorders.FOODJSON], function (err, result) {
       if (result) {
         data.result = {
           code: 200,

@@ -202,6 +202,7 @@ Page({
       }
     })
   },
+  //
   goinfo: function (e) {
     var list = this.data.myfoodsList;
     for (var i = 0; i < list.length; i++) {
@@ -222,6 +223,8 @@ Page({
         show: true
       })
     } else {
+      this.data.myfoodsList.unshift(this.data.sendMessage)
+      console.log(this.data.myfoodsList)
       wx.redirectTo({
         url: '../pay/pay?sumprice=' + this.data.sumprice + '&foodlist=' + JSON.stringify(this.data.myfoodsList),
       })
