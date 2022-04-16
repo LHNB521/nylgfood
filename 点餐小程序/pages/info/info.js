@@ -18,7 +18,7 @@ Page({
       "ginfo": {
         component: "优质大米",
         supplier: "买买提超级市场大米直销",
-        describe: "这是一份儿非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常香的米饭，嗯，真香。"
+        describe: "这是一份儿。"
       }
     },
     swiperCurrent: 0,
@@ -118,6 +118,8 @@ Page({
     this.setData({
       foodinfo: JSON.parse(e.foodinfo)
     })
+
+    console.log(this.data.foodinfo)
   },
 
   /**

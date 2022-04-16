@@ -7,7 +7,57 @@
     <title>点餐系统后台管理-订单管理</title>
     <link rel="stylesheet" href="/admin/css/foodadmin.css">
 </head>
-<body>
+<body style="background-color: #F6F6F6;">
     <% include common/top.ejs%>
+    <div class="foodDiv">
+        <div class="foodTable">
+            <table border="1" cellspacing="0">
+                <tr>
+                    <td>
+                        收货人
+                    </td>
+                    <td>
+                        收货人手机号
+                    </td>
+                    <td>
+                        收获ID
+                    </td>
+                    <td>
+                        商品
+                    </td>
+                    <td>
+                        操作
+                    </td>
+                </tr>
+                <%for(var i=0;i<foodData.length;i++){%>
+                    <tr>
+                        <td style="white-space : nowrap;">
+                            <%=foodData[i].NAME%>
+                        </td>
+                        <td style="white-space : nowrap;">
+                            <%=foodData[i].IPHONE%>
+                        </td>
+                        <td style="white-space : nowrap;">
+                            <%=foodData[i].BINDID%>
+                        </td>
+                        <td class="FOODJSON">
+                            <% for (var j = 0; j < foodData[i].FOODJSON.length; j++) {%> 
+                                <%=foodData[i].FOODJSON[j].num%>*<%=foodData[i].FOODJSON[j].name%>
+                                <br>
+                            <% } %>
+                        </td>
+                        <td style="white-space : nowrap;">
+                            <a href="?action=good&orderid=<%=foodData[i].oderid%>">
+                                <button>完成</button>
+                            </a>
+                            <a href="" onclick="return confirm('确定删除？')">
+                                <button>删除</button>
+                            </a>
+                        </td>
+                    </tr>
+                <%}%>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

@@ -195,7 +195,7 @@ router.get('/orderAdminCancel', function(req, res) {
     })
   })
 });
-// 订单完成操作
+// 管理点击订单完成操作
 router.get('/orderAdminOver', function(req, res) {
   var params = req.query || req.params
   var orderid = params.orderid

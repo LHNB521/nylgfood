@@ -4,8 +4,40 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
+  <style>
+    .button{
+      background-color: green;
+      width: 100px;
+      height: 40px;
+    }
+    a{
+      text-decoration: none;
+      font-size: 26px;
+    }
+    #b{
+      color: blue;
+    }
+  </style>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <p id="ax">后台启动成功！
+      <br>
+      <a href="/admin">
+        <span id="b">5</span>
+        秒后自动跳转到后台管理首页
+      </a>
+    </p>
+    <script>
+      var t=4
+      let int = window.setInterval(function rea(){
+        document.getElementById('b').innerText = t
+        t-=1
+        if(t==-1){
+          window.location.href = "/admin"
+          window.clearInterval(int)
+        }
+      },1000)
+    </script>
   </body>
 </html>

@@ -5,10 +5,8 @@
     <view class='h-name'>{{foodinfo.gname}}</view>
     <view class='myfont2'>{{foodinfo.gprice}}<text class="myfont1">¥/份儿</text></view>
   </view>
-  <text class='myfont1'>相关推荐</text>
   <!-- 轮播图 -->
   <view class="swiper-container">
-
     <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{duration}}" current="{{swiperCurrent}}" bindchange="swiperChange" display-multiple-items="3"class="swiper">
       <block wx:for="{{contactList}}" wx:key="unique">
         <swiper-item>
@@ -17,6 +15,7 @@
       </block>
     </swiper>
   </view>
+  
   <view class='page-content-box'>
     <view class="weui-article">
             <view class="weui-article__h1">详细信息：</view>

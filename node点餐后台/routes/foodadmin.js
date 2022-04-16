@@ -1,6 +1,6 @@
 /*
     菜品添加修改
-*/ 
+*/
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
@@ -108,7 +108,7 @@ router.get('/alert', function (req, res, next) {
                     msg: '修改失败'
                 }
             }
-        responseJSON(_res, data)
+            responseJSON(_res, data)
         });
         connection.release()
     })
@@ -174,7 +174,7 @@ router.get('/addGoods', function (req, res, next) {
                     msg: '添加失败'
                 }
             }
-        responseJSON(_res, data)
+            responseJSON(_res, data)
         });
         connection.release()
     })
@@ -183,21 +183,21 @@ router.get('/addGoods', function (req, res, next) {
 router.post('/addGoodsImg', function (req, res, next) {
     var params = req.query || req.params
     var imgName = ''
-    var form = new formidable.IncomingForm()//既处理表单，又处理文件上传  
+    var form = new formidable.IncomingForm() //既处理表单，又处理文件上传  
 
     //设置文件上传文件夹/路径，__dirname是一个常量，为当前路径
     let uploadDir = path.join(__dirname, "../public/images")
-    form.uploadDir = uploadDir;//本地文件夹目录路径
+    form.uploadDir = uploadDir; //本地文件夹目录路径
 
     form.parse(req, (err, fields, files) => {
 
-        let oldPath = files.fileImg.path;  //这里的路径是图片的本地路径 
+        let oldPath = files.fileImg.path; //这里的路径是图片的本地路径 
         //图片传过来的名字
         let newPath = path.join(path.dirname(oldPath), files.fileImg.name);
         imgName = files.fileImg.name
         //这里我传回一个下载此图片的Url
-        var downUrl = "http://localhost:3000/images/" + files.fileImg.name;//这里是想传回图片的链接
-        fs.rename(oldPath, newPath, () => {//fs.rename重命名图片名称
+        var downUrl = "http://localhost:3000/images/" + files.fileImg.name; //这里是想传回图片的链接
+        fs.rename(oldPath, newPath, () => { //fs.rename重命名图片名称
             console.log('图片成功')
         })
         pool.getConnection(function (err, connection) {
@@ -211,7 +211,7 @@ router.post('/addGoodsImg', function (req, res, next) {
             connection.release()
         })
     })
-    
+
 });
 
 module.exports = router;

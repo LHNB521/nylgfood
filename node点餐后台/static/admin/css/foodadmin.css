@@ -1,0 +1,21 @@
+.foodDiv{
+    position: relative;
+}
+.foodTable{
+    position: absolute;
+    transform: translate(-50%,0);
+    background-color: #CCFFFF;
+    top: 100%;
+    left: 50%;
+}
+.foodTable table{
+    text-align: center;
+}
+.foodTable table tr td{
+    
+    padding: 10px 20px;
+}
+.FOODJSON{
+    padding: 15px 10px;
+    white-space: normal;
+}
