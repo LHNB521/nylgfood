@@ -70,7 +70,8 @@
                 </view>
                 <form bindsubmit="submitadd" wx:if="{{addflag}}">
                   <view class="weui-cells__title">新管理员账号 :</view>
-                  <input class="weui-input" name='id' placeholder="请输入微信账号：" />
+                  <input class="weui-input" name='id' placeholder="请输入账号：" />
+                  <input class="weui-input" name='idPassword' placeholder="请输入密码" />
                   <button class="weui-btn" type="primary" form-type='submit'>确定</button>
                 </form>
               </view>

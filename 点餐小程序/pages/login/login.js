@@ -1,18 +1,23 @@
 // client/pages/login.js
 const app = getApp()
-
 Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    isAdmin: false
+    isAdmin: false,
+    lastTime: '',
+    count: 0,
+    adminInput: false,
+    adminName: '',
+    adminPasswd: ''
   },
 
   onLoad: function () {
     var t = this
     wx.onAppRoute(res => {
-      var a = getApp(), b = a.globalData.targetPageEventChannel
+      var a = getApp(),
+        b = a.globalData.targetPageEventChannel
       if (b && res.path != t.route) {
         a.globalData.targetPageEventChannel = false
       }
@@ -53,7 +58,7 @@ Page({
     })
   },
   // 订单记录按钮
-  orderPage:function(e) {
+  orderPage: function (e) {
     wx.navigateTo({
       url: '../order/order'
     })
@@ -99,4 +104,102 @@ Page({
       url: '../severmenu/severmenu'
     })
   },
+  // 连续点击头像
+  avatarUrl: function (e) {
+    // 获取这次点击时间
+    var thisTime = e.timeStamp;
+    // 获取上次点击时间 默认为0
+    var lastTime = this.data.lastTime;
+    var count = this.data.count
+    if (lastTime != 0) {
+      if (thisTime - this.data.lastTime < 500) {
+        count++
+        if (count > 5) {
+          this.goAdminInput()
+          count = 0
+        }
+      } else {
+        count = 0
+      }
+    }
+    // 赋值
+    this.setData({
+      count: count,
+      lastTime: thisTime
+    })
+  },
+  goAdminInput: function () {
+    let that = this
+    wx.showModal({
+      cancelColor: 'cancelColor',
+      content: '是否绑定管理员账号，账号仅此绑定一次！',
+      success(res) {
+        if (res.confirm) {
+          that.setData({
+            adminInput: true
+          })
+        } else if (res.cancel) {
+          that.setData({
+            adminInput: false
+          })
+        }
+      }
+    })
+  },
+  // 取消输入
+  cancel: function () {
+    let that = this
+    that.setData({
+      adminInput: false
+    })
+  },
+  bindAdminName: function (e) {
+    this.setData({
+      adminName: e.detail.value
+    })
+  },
+  bindAdminPasswd: function (e) {
+    this.setData({
+      adminPasswd: e.detail.value
+    })
+  },
+  // 确定
+  adminSend: function () {
+    let data = {
+      adminName: this.data.adminName,
+      adminPasswd: this.data.adminPasswd,
+      CUSID: 'qeqweqdsadsaoww'
+    }
+    let adminJSON = JSON.stringify(data)
+    wx.request({
+      url: app.globalData.serveraddr + '/becomeadmin',
+      data: {
+        adminList: adminJSON
+      },
+      method: 'POST',
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      success: res => {
+        if (res.data.resp.code == 200) {
+          wx.showToast({
+            title: res.data.resp.msg,
+            icon: 'success',
+            duration: 2000
+          })
+          this.setData({
+            adminInput: false
+          })
+        } else {
+          wx.showToast({
+            title: res.data.resp.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+
+        console.log(res)
+      }
+    })
+  }
 })

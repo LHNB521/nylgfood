@@ -12,7 +12,7 @@ var orderRouter = require('./routes/order')
 var adminRouter = require('./routes/admin')
 var foodadminRouter = require('./routes/foodadmin')
 var saveMessage = require('./routes/savemessage')
-
+var becomeadmin = require('./routes/becomeadmin')
 var app = express();
 
 // view engine setup
@@ -34,6 +34,7 @@ app.use('/order', orderRouter);
 app.use('/fontadmin', adminRouter);
 app.use('/foodadmin', foodadminRouter);
 app.use('/savemessage',saveMessage);
+app.use('/becomeadmin',becomeadmin);
 //跳转后台
 var adminIndex = require('./router/admin/index')();
 app.use('/admin', adminIndex);

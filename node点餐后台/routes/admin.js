@@ -36,7 +36,7 @@ router.get('/', function (req, res, next) {
 router.get('/add', function (req, res, next) {
     var params = req.query || req.params
     var limit='false';
-    var addSqlParams =[JSON.parse(params.admin).cusid,JSON.parse(params.admin).name,limit]
+    var addSqlParams =[JSON.parse(params.admin).name,JSON.parse(params.admin).name,JSON.parse(params.admin).password,limit]
     console.error(addSqlParams);
     pool.getConnection(function (err, connection) {
         var data = {}

@@ -6,5 +6,8 @@
       <button wx:if="{{canIUseGetUserProfile}}" class='click-btn' type='primary'  bindtap="getUserProfile"> 微信登陆 </button>
       <button wx:else type='primary' class='click-btn' type='primary' open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信登陆 </button>
     </block>
+    <block>
+      
+    </block>
   </view>
 </view>

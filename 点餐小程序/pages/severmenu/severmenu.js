@@ -32,8 +32,16 @@ Page({
       url: app.globalData.serveraddr + '/fontadmin',
       data: {},
       success: res => {
+        let resData = res.data.res
+        resData.forEach((item, index) => {
+          if (item.LIMITS == 'false') {
+            item.NICKNAME = '管理员：' + item.NICKNAME
+          } else if (item.LIMITS == 'true') {
+            item.NICKNAME = '超级管理员：' + item.NICKNAME
+          }
+        })
         that.setData({
-          adminlist: res.data.res
+          adminlist: resData
         })
       }
     })
@@ -169,39 +177,58 @@ Page({
   },
   // 卡片三管理员
   submitadd: function (e) {
-    var admin = {
-      cusid: '',
-      name: '',
-    }
-    admin.cusid = e.detail.value.id;
-    admin.name = '管理员:' + e.detail.value.id;
-    wx.request({
-      url: app.globalData.serveraddr + '/fontadmin/add',
-      data: {
-        admin: admin,
-      },
-      success: res => {
-        this.setData({
-          adminlist: res.data.res,
-          addflag: false,
-        })
-        console.log(res.data.res);
+    if (!e.detail.value.idPassword || !e.detail.value.idPassword) {
+      wx.showToast({
+        title: '输入不可为空',
+        icon: 'none'
+      })
+    } else {
+      var admin = {
+        password: '',
+        name: '',
       }
-    })
-
+      admin.password = e.detail.value.idPassword;
+      admin.name = e.detail.value.id;
+      wx.request({
+        url: app.globalData.serveraddr + '/fontadmin/add',
+        data: {
+          admin: admin,
+        },
+        success: res => {
+          let resData = res.data.res
+          resData.forEach((item, index) => {
+            if (item.LIMITS == 'false') {
+              item.NICKNAME = '管理员：' + item.NICKNAME
+            } else if (item.LIMITS == 'true') {
+              item.NICKNAME = '超级管理员：' + item.NICKNAME
+            }
+          })
+          this.setData({
+            adminlist: resData,
+            addflag: false,
+          })
+        }
+      })
+    }
   },
   subtract: function (e) {
-    console.log(e.target.dataset.id)
     wx.request({
       url: app.globalData.serveraddr + '/fontadmin/subtract',
       data: {
         cusid: e.target.dataset.id,
       },
       success: res => {
-        this.setData({
-          adminlist: res.data.res
+        let resData = res.data.res
+        resData.forEach((item, index) => {
+          if (item.LIMITS == 'false') {
+            item.NICKNAME = '管理员：' + item.NICKNAME
+          } else if (item.LIMITS == 'true') {
+            item.NICKNAME = '超级管理员：' + item.NICKNAME
+          }
         })
-        console.log(res.data.res);
+        this.setData({
+          adminlist: resData
+        })
       }
     })
   },

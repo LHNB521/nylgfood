@@ -12,7 +12,7 @@
     <view class='content'>
       <!-- 有网 已验证 -->
       <view wx:if="{{(hasUserInfo || !canIUse)}}">
-        <image class='avatar' src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <image class='avatar' src="{{userInfo.avatarUrl}}" mode="cover" bindtap="avatarUrl" data-name='tap'></image>
       </view>
       <view wx:else>
         <image class='avatar' src='../img/unloading.png'></image>
@@ -29,3 +29,29 @@
     </view>
   </block>
 </view>
+<block wx:if="{{adminInput}}">
+  <view class='toast-box'>
+    <view class='toastbg'></view>
+    <view class='showToast'>
+      <view class='toast-title'>
+        <text>管理员登录</text>
+      </view>
+      <view class='toast-main'>
+        <view class='toast-input'>
+          <input type='number' placeholder='输入管理员账号' bindinput='bindAdminName'></input>
+        </view>
+        <view class='toast-input'>
+          <input type='number' placeholder='输入管理员密码' bindinput='bindAdminPasswd'></input>
+        </view>
+      </view>
+      <view class='toast-button'>
+        <view class='button1'>
+          <button catchtap='cancel'>取消</button>
+        </view>
+        <view class='button2'>
+          <button catchtap='adminSend'>确定</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>

@@ -60,8 +60,6 @@ App({
     //   }
     // })
   },
-
-
   getOpenId: function () {
     var that = this
     return new Promise(function (resolve, reject) {
