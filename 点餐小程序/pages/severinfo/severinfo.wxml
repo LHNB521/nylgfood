@@ -1,7 +1,16 @@
 <!--client/pages/info/info.wxml-->
 <view class='container'>
   <view class='page-head'>
-    <image class='food-img' src="{{serveraddr}}/images/{{foodinfo.GIMG}}"></image>
+    <wxs module="m4">
+      var getImg = function (e) {
+        var img = JSON.parse(e).img
+        return img
+      }
+      module.exports.message = getImg;
+    </wxs>
+    <block wx:if="{{m4.message(foodinfo.GIMG)}}" wx:key="unique">
+      <image class='food-img' src="{{serveraddr}}/images/{{m4.message(foodinfo.GIMG)}}"></image>
+    </block>
     <view class='h-name'>{{foodinfo.GNAME}}</view>
     <view class='myfont2'>{{foodinfo.GPRICE}}
       <text class="myfont1">¥/份儿</text>

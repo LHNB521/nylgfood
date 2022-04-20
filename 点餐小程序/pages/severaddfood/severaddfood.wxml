@@ -1,6 +1,6 @@
 <!--pages/severaddfood/severaddfood.wxml-->
 <view class="container">
-   <image class='head-img' src='../img/logo.png'></image>
+  <image class='head-img' src='../img/logo.png'></image>
   <form bindsubmit="submit">
     <view class="input-box">
       <view class="weui-cells__title">菜品名称 :</view>
@@ -24,12 +24,12 @@
       </radio-group>
     </view>
     <view class="input-box">
-    <form bindsubmit="submitmore" wx:if="{{moreflag}}">
-      <view class="weui-cells__title">新类别名称 :</view>
-          <input class="weui-input" name='typename' placeholder="请输入新菜品名称：" />
+      <form bindsubmit="submitmore" wx:if="{{moreflag}}">
+        <view class="weui-cells__title">新类别名称 :</view>
+        <input class="weui-input" name='typename' placeholder="请输入新菜品名称：" />
 
-      <button class="weui-btn" type="primary" form-type='submit'>确定</button>
-    </form>
+        <button class="weui-btn" type="primary" form-type='submit'>确定</button>
+      </form>
     </view>
 
     <view class="input-box">
@@ -46,12 +46,12 @@
       <view class="weui-textarea-counter">0/200</view>
     </view>
 
-    <view class="weui-uploader__input-box">
+    <view class="weui-uploader__input-box" hidden="{{haveImg}}">
       <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="" bindtap='chooseImage' />
     </view>
     <text class="up-text">上传图片</text>
     <view class="up-img-box">
-    <image wx:if="{{files!=''}}" src="{{files}}" class="up-img"></image>
+      <image wx:for="{{files}}" wx:for-index = 'i' src="{{files[i]}}" class="up-img"></image>
     </view>
     <view class="weui-btn-area">
       <button class="weui-btn" type="primary" form-type='submit'>提交</button>

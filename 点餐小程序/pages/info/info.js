@@ -1,9 +1,11 @@
 // client/pages/info/info.js
+var app = getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    serveraddr: app.globalData.serveraddr,
     foodinfo: {
       "gid": "89e8ec77-8820-48c1-9d4e-f001f093ff93",
       "gtid": "1",
@@ -29,7 +31,7 @@ Page({
     circular: true,
 
     contactList: [{
-      // 菜品id
+        // 菜品id
         "gid": "72374eee-c5a5-4b54-b007-7ce5e7ffbb0e",
         // 菜品种类
         "gtid": "1",
@@ -114,89 +116,62 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(e) {
+  onLoad: function (e) {
     this.setData({
       foodinfo: JSON.parse(e.foodinfo)
     })
-
-    console.log(this.data.foodinfo)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
-  },
-  //轮播图的切换事件
-
-  swiperChange: function(e) {
-    this.setData({
-      swiperCurrent: e.detail.current
-
-    })
-
-  },
-  goinfo: function(e) {
-    var contact = this.data.contactList;
-    for (var i = 0; i < contact.length;i++)
-    {
-      if (e.currentTarget.dataset.gid == contact[i].gid)
-      {
-        var food = contact[i];
-        contact.splice(i,1,this.data.foodinfo);  
-        this.setData({
-          foodinfo: food,
-          contactList:contact
-        })
-      }
-      console.log(this.data.contactList);
-    }
   },
   //点击指示点切换
-  chuangEvent: function(e) {
+  chuangEvent: function (e) {
     this.setData({
       swiperCurrent: e.currentTarget.id
     })

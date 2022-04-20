@@ -28,6 +28,8 @@ Page({
     moreflag: false,
     showTopTips: false,
     warning: "",
+    imgNum: 4,
+    haveImg: false
   },
 
   /**
@@ -118,7 +120,6 @@ Page({
       value: '',
       checked: true
     };
-
     newtype.value = this.data.radioItems.length.toString();
     this.data.typeinfo.gtid = this.data.radioItems.length.toString();
     newtype.name = this.data.newtypename;
@@ -132,28 +133,33 @@ Page({
       moreflag: false,
       typeinfo: this.data.typeinfo,
     });
-    console.log(newtype, this.data.radioItems);
   },
+  // 图片选择
   chooseImage: function (e) {
     var that = this;
-    console.log(e);
-    this.setData({
-      files: [],
-    });
     wx.chooseImage({
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      count: that.data.imgNum - this.data.files.length,
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
+        console.log(that.data.files)
+        let arr = [...that.data.files, ...res.tempFilePaths]
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
+          files: arr,
+          imgNum: 4-arr.length
         });
+        if(that.data.files.length>=4){
+          that.setData({
+            haveImg: true
+          })
+        }
       },
     });
   },
+  // 提交
   submit: function (e) {
     var that = this
-    
     var warningflag = false;
     console.log(e.detail.value.foodname);
     if (e.detail.value.foodname == '') {
@@ -180,7 +186,7 @@ Page({
           this.data.foodinfo.gcontent = e.detail.value.foodtime;
           if (e.detail.value.fooddiscribe == '') {
             this.setData({
-              warning: "请输入供应时段",
+              warning: "请添加菜品描述",
             })
             warningflag = true;
           } else {
@@ -190,7 +196,6 @@ Page({
                 warning: "请添加图片",
               })
               warningflag = true;
-
             } 
             else {
               this.data.foodinfo.gimg = this.data.files;
@@ -220,7 +225,6 @@ Page({
           foodinfo: this.data.foodinfo,
         },
         success: res => {
-          console.log(res)
           if (res.data.result.code == 200) {
             wx.showToast({
               title: '提交成功',
@@ -242,9 +246,7 @@ Page({
       this.setData({
         foodinfo: this.data.foodinfo,
       });
-      console.log(this.data.foodinfo);
       if (true) {
-        console.log(this.data.foodinfo);
         wx.showToast({
           title: '提交成功',
           icon: 'success',
@@ -261,20 +263,39 @@ Page({
         });
       }
     }
-
-    wx.uploadFile({
-      url: app.globalData.serveraddr + '/foodadmin/addGoodsImg', //app.ai_api.File.file
-      filePath: that.data.files[0],  //文件路径  这里是mp3文件
-      name: 'fileImg',  //随意
-      formData: {
-        'user': 'test'
-      },
-      success(res) {
-        const data = res.data
-        console.log(res)
-        //do something
-      }
-    })
+    this.saveImg()
   },
-
+  saveImg(){
+    let imgArrList = []
+    this.data.files.forEach((item,index)=>{
+      console.log(item)
+      wx.showLoading({
+        title: '正在上传图片',
+        mask: true
+      })
+      let promise = new Promise((resolve,reject)=>{
+        wx.uploadFile({
+          url: app.globalData.serveraddr + '/foodadmin/addGoodsImg',
+          filePath: item,
+          name: 'fileImg',
+          formData:{
+            'user': 'test'
+          },
+          success:(result)=>{
+            let data = result.data
+            console.log(data)
+            resolve()
+          },
+        })
+      })
+      imgArrList.push(promise)
+    })
+    Promise.all(imgArrList).then(res => {
+      wx.hideLoading({
+        success: (res) => {
+          console.log(res)
+        },
+      })
+    })
+  }
 })

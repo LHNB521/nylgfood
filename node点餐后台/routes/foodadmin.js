@@ -65,6 +65,7 @@ router.get('/', function (req, res, next) {
         connection.release()
     })
 });
+// 下架删除菜品
 router.get('/uninstall', function (req, res, next) {
     var params = req.query || req.params
     var data = {}
@@ -88,6 +89,7 @@ router.get('/uninstall', function (req, res, next) {
         })
     })
 });
+// 修改菜品
 router.get('/alert', function (req, res, next) {
     var params = req.query || req.params
     var foodinfo = JSON.parse(params.foodinfo);
@@ -152,8 +154,12 @@ router.get('/addGoodType', function (req, res, next) {
         connection.release()
     })
 });
-
+// 以下添加菜品信息
 var imgGid = ''
+let arrImgs = {
+    img:'',//主图
+    imgList:[] // 轮播图
+}
 router.get('/addGoods', function (req, res, next) {
     var params = req.query || req.params
     var foodinfo = JSON.parse(params.foodinfo);
@@ -161,8 +167,11 @@ router.get('/addGoods', function (req, res, next) {
     var _res = res
     var gid = uuid.v4()
     imgGid = gid
+    arrImgs.img = 'food1.png'
+    let imgJSON = JSON.stringify(arrImgs)
+    arrImgs.img = ''
     pool.getConnection(function (err, connection) {
-        connection.query(menuSql.insertGoods, [gid, foodinfo.gtid, foodinfo.gname, 1, parseInt(foodinfo.gprice), foodinfo.gcontent, 'food1.png', 5, 0, foodinfo.ginfo], function (err, result) {
+        connection.query(menuSql.insertGoods, [gid, foodinfo.gtid, foodinfo.gname, 1, parseInt(foodinfo.gprice), foodinfo.gcontent, imgJSON, 5, 0, foodinfo.ginfo], function (err, result) {
             if (result) {
                 data.result = {
                     code: 200,
@@ -179,6 +188,7 @@ router.get('/addGoods', function (req, res, next) {
         connection.release()
     })
 });
+// 菜品图片上传
 
 router.post('/addGoodsImg', function (req, res, next) {
     var params = req.query || req.params
@@ -190,18 +200,24 @@ router.post('/addGoodsImg', function (req, res, next) {
     form.uploadDir = uploadDir; //本地文件夹目录路径
 
     form.parse(req, (err, fields, files) => {
-
         let oldPath = files.fileImg.path; //这里的路径是图片的本地路径 
         //图片传过来的名字
         let newPath = path.join(path.dirname(oldPath), files.fileImg.name);
         imgName = files.fileImg.name
+        console.log(arrImgs)
+        if(!arrImgs.img){
+            arrImgs.img = imgName
+        }else{
+            arrImgs.imgList.push(imgName)
+        }
+        console.log(JSON.stringify(arrImgs))
         //这里我传回一个下载此图片的Url
         var downUrl = "http://localhost:3000/images/" + files.fileImg.name; //这里是想传回图片的链接
         fs.rename(oldPath, newPath, () => { //fs.rename重命名图片名称
             console.log('图片成功')
         })
         pool.getConnection(function (err, connection) {
-            var modSql = `UPDATE goods SET GIMG='${imgName}' WHERE GID='${imgGid}'`
+            var modSql = `UPDATE goods SET GIMG='${JSON.stringify(arrImgs)}' WHERE GID='${imgGid}'`
             connection.query(modSql, function (err, result) {
                 if (result) {
                     console.log('图片名字修改成功')

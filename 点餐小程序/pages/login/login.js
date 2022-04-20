@@ -168,7 +168,7 @@ Page({
     let data = {
       adminName: this.data.adminName,
       adminPasswd: this.data.adminPasswd,
-      CUSID: 'qeqweqdsadsaoww'
+      CUSID: app.globalData.cusid
     }
     let adminJSON = JSON.stringify(data)
     wx.request({

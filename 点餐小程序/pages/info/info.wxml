@@ -1,39 +1,56 @@
 <!--client/pages/info/info.wxml-->
 <view class='container'>
   <view class='page-head'>
-    <image class='food-img' src="../img/{{foodinfo.gimg}}"></image>
+    <wxs module="m1">
+      var getImg = function (e) {
+        var img = JSON.parse(e).img
+        return img
+      }
+      module.exports.message = getImg;
+    </wxs>
+    <block wx:if="{{m1.message(foodinfo.gimg)}}" wx:key="unique">
+      <image class='food-img' src="{{serveraddr}}/images/{{m1.message(foodinfo.gimg)}}"></image>
+    </block>
     <view class='h-name'>{{foodinfo.gname}}</view>
     <view class='myfont2'>{{foodinfo.gprice}}<text class="myfont1">¥/份儿</text></view>
   </view>
   <!-- 轮播图 -->
   <view class="swiper-container">
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{duration}}" current="{{swiperCurrent}}" bindchange="swiperChange" display-multiple-items="3"class="swiper">
-      <block wx:for="{{contactList}}" wx:key="unique">
+    <wxs module="m2">
+      var getImg = function (e) {
+        var imgList = JSON.parse(e).imgList
+        console.log(imgList.length)
+        return imgList
+      }
+      module.exports.message = getImg;
+    </wxs>
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{duration}}" current="{{swiperCurrent}}" display-multiple-items="0" class="swiper">
+      <block wx:for="{{m2.message(foodinfo.gimg)}}" wx:key="unique">
         <swiper-item>
-          <image src="../img/{{item.gimg}}" class="img"  data-gid="{{item.gid}}" bindtap='goinfo'/>
+          <image src="{{serveraddr}}/images/{{item}}" class="img" data-gid="{{item.gid}}"/>
         </swiper-item>
       </block>
     </swiper>
   </view>
-  
+
   <view class='page-content-box'>
     <view class="weui-article">
-            <view class="weui-article__h1">详细信息：</view>
-            <view class="weui-article__section">
-                <view class="weui-article__section">
-                <view class="weui-article__h3">食材主要成分</view>
-                    <view class="weui-article__p">{{foodinfo.ginfo.component}}</view>
-                </view>
-                   <view class="weui-article__section">
-                <view class="weui-article__h3">食材提供</view>
-                    <view class="weui-article__p">{{foodinfo.ginfo.supplier}}</view>
-                </view>
-                   <view class="weui-article__section">
-                <view class="weui-article__h3">菜品描述</view>
-                    <view class="weui-article__p">{{foodinfo.ginfo.describe}}</view>
-                </view>
-            </view>
+      <view class="weui-article__h1">详细信息：</view>
+      <view class="weui-article__section">
+        <view class="weui-article__section">
+          <view class="weui-article__h3">食材主要成分</view>
+          <view class="weui-article__p">{{foodinfo.ginfo.component}}</view>
         </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h3">食材提供</view>
+          <view class="weui-article__p">{{foodinfo.ginfo.supplier}}</view>
+        </view>
+        <view class="weui-article__section">
+          <view class="weui-article__h3">菜品描述</view>
+          <view class="weui-article__p">{{foodinfo.ginfo.describe}}</view>
+        </view>
+      </view>
+    </view>
     <view class='appraise-box'>
       <navigator url="../appraise/appraise" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">用户评价</view>

@@ -168,6 +168,7 @@ router.get('/getOrderAdmin', function(req, res) {
         data.cusOrderArr = cusOrderArr
       }
       responseJSON(_res, data)
+      connection.release()
     })
   })
 });

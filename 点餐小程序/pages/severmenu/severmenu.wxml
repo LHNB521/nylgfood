@@ -3,7 +3,7 @@
   <view class="page__bd">
     <view class="weui-tab">
       <view class="weui-navbar">
-        <block wx:for="{{tabs}}" wx:key="*this">
+        <block wx:for="{{tabs}}" wx:key="item">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
             <view class="weui-navbar__title">{{item}}</view>
           </view>
@@ -14,7 +14,7 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
           <view class="container">
             <view class="list-box">
-              <view class="list-item" wx:for="{{orderlist}}" wx:key="orderindex" wx:for-index="orderindex">
+              <view class="list-item" wx:for="{{orderlist}}" wx:key="item" wx:for-index="orderindex">
                 <view class="user-box">
                   <image class="item-img" src="../img/uservatar.png"></image>
                   <text class='dingdanbianhao'>编号:{{item.orderid}}</text>
@@ -34,11 +34,18 @@
             <view class='page-head-box'>
               <image class='add-img' src="../img/addicon.png" bindtap='open'></image>
             </view>
-            <view class='list-box' wx:for="{{datalist}}" wx:for-index="dataindex">
+            <view class='list-box' wx:for="{{datalist}}" wx:for-index="dataindex"  wx:key="item">
               <view class="title-text">{{datalist[dataindex].gt.GTNAME}}</view>
-              <view wx:for="{{datalist[dataindex].goodslist}}" wx:for-item="item" wx:key="{{item.GID}}">
+              <view wx:for="{{datalist[dataindex].goodslist}}" wx:for-item="item" wx:key="item">
                 <view class='list-item-box'>
-                  <image class='item-img' src="{{serveraddr}}/images/{{item.GIMG}}" data-gtid="{{item.GTID}}" data-gid="{{item.GID}}" bindtap='goinfo'></image>
+                  <wxs module="m3">
+                    var getImg = function (e) {
+                      var img = JSON.parse(e).img
+                      return img
+                    }
+                    module.exports.message = getImg;
+                  </wxs>
+                  <image class='item-img' src="{{serveraddr}}/images/{{m3.message(item.GIMG)}}" data-gtid="{{item.GTID}}" data-gid="{{item.GID}}" bindtap='goinfo'></image>
                   <view class='item-info-box'>
                     <view class='item-name'>{{item.GNAME}}</view>
                     <text class='item-type'>{{item.GCONTENT}}</text>
@@ -61,7 +68,7 @@
           <view wx:if="{{limitflag}}">
             <view class="container">
               <view class="list-box">
-                <view wx:for="{{adminlist}}" class="list-item" wx:key="{{item.id}}">
+                <view wx:for="{{adminlist}}" class="list-item" wx:key="item">
                   <view class="user-box">
                     <image class="item-img" src="../img/uservatar.png"></image>
                     <text class="item-text">{{item.NICKNAME}}</text>

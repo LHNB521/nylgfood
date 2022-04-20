@@ -32,7 +32,6 @@ Page({
     wx.request({
       url: app.globalData.serveraddr + '/menu',
       success: res => {
-        console.log(res.data)
         var gtList = []
         // 取数据
         for (var i = 0; i < res.data.gtlist.length; i++) {

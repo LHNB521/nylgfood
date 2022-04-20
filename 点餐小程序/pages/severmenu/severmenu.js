@@ -70,7 +70,6 @@ Page({
     wx.request({
       url: app.globalData.serveraddr + '/order/getOrderAdmin',
       success: res => {
-        console.log(res)
         this.setData({
           orderlist: res.data.cusOrderArr
         })

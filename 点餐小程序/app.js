@@ -140,8 +140,7 @@ App({
     serveraddr: "http://127.0.0.1:3000",
     cusid: null,
     isHaveOrder: false,
-    limit: false,
+    limit: null,
     appid: null
   }
-
 })

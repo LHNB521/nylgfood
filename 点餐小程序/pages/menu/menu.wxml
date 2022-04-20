@@ -4,7 +4,7 @@
     <view class="page__bd">
       <view class="weui-tab">
         <view class="weui-navbar">
-          <block wx:for="{{mydata}}" wx:key="*this">
+          <block wx:for="{{mydata}}" wx:key="item">
             <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
               <!-- 导航栏标题 -->
               <view class="weui-navbar__title">{{item.gt.gtname}}</view>
@@ -20,9 +20,16 @@
           <!-- 菜单列表 -->
           <view wx:for="{{mydataLength}}" wx:key="item">
             <view class="weui-tab__content" hidden="{{activeIndex != item}}">
-              <view class='list-box' wx:for="{{mydata[item].goodslist}}" wx:key="{{item.gid}}">
+              <view class='list-box' wx:for="{{mydata[item].goodslist}}" wx:key="item">
                 <view class='list-item-box'>
-                  <image class='item-img' src='{{serveraddr}}/images/{{item.gimg}}' data-gtid="{{item.gtid}}" data-gid="{{item.gid}}" bindtap='goinfo'></image>
+                  <wxs module="m1">
+                    var getImg = function (e) {
+                      var img = JSON.parse(e).img
+                      return img
+                    }
+                    module.exports.message = getImg;
+                  </wxs>
+                  <image class='item-img' src='{{serveraddr}}/images/{{m1.message(item.gimg)}}' data-gtid="{{item.gtid}}" data-gid="{{item.gid}}" bindtap='goinfo'></image>
                   <view class='item-info-box'>
                     <view class='item-name'>{{item.gname}}</view>
                     <text class='item-type'>{{item.gcontent}}</text>
