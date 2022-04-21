@@ -1,43 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <style>
-    .button{
-      background-color: green;
-      width: 100px;
-      height: 40px;
-    }
-    a{
-      text-decoration: none;
-      font-size: 26px;
-    }
-    #b{
-      color: blue;
-    }
-  </style>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <p id="ax">后台启动成功！
-      <br>
-      <a href="/admin">
-        <span id="b">5</span>
-        秒后自动跳转到后台管理首页
-      </a>
-    </p>
-    <script>
-      var t=4
-      let int = window.setInterval(function rea(){
-        document.getElementById('b').innerText = t
-        t-=1
-        if(t==-1){
-          window.location.href = "/admin"
-          window.clearInterval(int)
-        }
-      },1000)
-    </script>
-  </body>
+
+<head>
+  <title>点餐系统后台管理-登录</title>
+  <link rel="stylesheet" href="/index.css">
+  <script type="text/javascript" src="/jquery.js"></script>
+</head>
+
+<body>
+  <script>
+    $(document).ready(function () {
+      var whei = $(window).width()
+      $("html").css({ fontSize: whei / 24 });
+      $(window).resize(function () {
+        var whei = $(window).width();
+        $("html").css({ fontSize: whei / 24 })
+      });
+    });
+  </script>
+  <div class="main">
+    <div class="header">
+      <div class="header-center f1">
+        <div class="header-title">
+          登录界面
+        </div>
+        <div class="header-img"></div>
+      </div>
+      <div class="header-bottom f1"></div>
+    </div>
+    <div class="content">
+      <div class="content-left"></div>
+      <div class="content-right">
+        <div class="right-infp">
+          <div class="right-infp-name">
+            <input type="text" name="username" placeholder="请输入账号">
+          </div>
+          <div class="right-infp-name">
+            <input type="text" name="username" placeholder="请输入密码">
+          </div>
+          <div class="right-infp-btn">
+            <button class="btn">登录</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>

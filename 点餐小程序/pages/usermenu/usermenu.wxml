@@ -14,7 +14,14 @@
   <view class='menu-box'>
     <view class='list-box' wx:for="{{myfoodsList}}" wx:key="{{item.gid}}">
       <view class='list-item-box'>
-        <image class='item-img' src="{{serveraddr}}/images/{{item.gimg}}" data-gid="{{item.gid}}" bindtap='goinfo'></image>
+        <wxs module="m5">
+          var getImg = function (e) {
+            var imgList = JSON.parse(e).img
+            return imgList
+          }
+          module.exports.message = getImg;
+        </wxs>
+        <image class='item-img' src="{{serveraddr}}/images/{{m5.message(item.gimg)}}" data-gid="{{item.gid}}" bindtap='goinfo'></image>
         <view class='item-info-box'>
           <view class='item-name'>{{item.gname}}\n\n</view>
           <text class='item-type'>\n*{{item.gcount}}</text>
@@ -34,25 +41,20 @@
   </view>
 </view>
 <!--填写订单信息-->
-<page-container 
-  show="{{show}}"
-  position="{{position}}"
-  round="true"
-  duration="300"
->
+<page-container show="{{show}}" position="{{position}}" round="true" duration="300">
   <view>
     <view class="page-container-title">填写收货地址</view>
     <view class="weui-cell weui-cell_input">
       <span> 联系人 ：</span>
-      <input class="weui-input" type="nickname" bindinput="bindName" value="{{name}}" placeholder="请输入收货人的姓名"/>
+      <input class="weui-input" type="nickname" bindinput="bindName" value="{{name}}" placeholder="请输入收货人的姓名" />
     </view>
     <view class="weui-cell weui-cell_input">
       <span> 手机号 ：</span>
-      <input class="weui-input" type="number" bindinput="bindIphone" value="{{iphone}}" placeholder="请输入收货人的手机号" maxlength="11"/>
+      <input class="weui-input" type="number" bindinput="bindIphone" value="{{iphone}}" placeholder="请输入收货人的手机号" maxlength="11" />
     </view>
     <view class="weui-cell weui-cell_input">
       <span> 暗号 ：</span>
-      <input class="weui-input" type="text" bindinput="bindId" value="{{bindId}}" placeholder="请输入暗号"/>
+      <input class="weui-input" type="text" bindinput="bindId" value="{{bindId}}" placeholder="请输入暗号" />
     </view>
     <view>
       <button class="weui-btn" bindtap="save" type="primary">{{editText}}</button>

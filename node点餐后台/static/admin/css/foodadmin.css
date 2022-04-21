@@ -4,7 +4,7 @@
 .foodTable{
     position: absolute;
     transform: translate(-50%,0);
-    background-color: #CCFFFF;
+    
     top: 100%;
     left: 50%;
 }

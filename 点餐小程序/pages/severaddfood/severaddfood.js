@@ -45,12 +45,13 @@ Page({
           items.name = res.data.goodstypes[i].GTNAME
           items.value = res.data.goodstypes[i].GTID - 1
           if (res.data.goodstypes[i].GTID == 1) {
-            items.checked = true
+            items.checked = false
           } else {
             items.checked = false
           }
           radioItems.push(items)
         }
+        console.log(radioItems)
         this.setData({
           radioItems: radioItems
         })
