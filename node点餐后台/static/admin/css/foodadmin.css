@@ -1,21 +1,33 @@
-.foodDiv{
+.foodDiv {
     position: relative;
 }
-.foodTable{
+
+.foodTable {
     position: absolute;
-    transform: translate(-50%,0);
-    
+    transform: translate(-50%, 0);
     top: 100%;
     left: 50%;
 }
-.foodTable table{
+
+.foodTable table {
     text-align: center;
 }
-.foodTable table tr td{
-    
+
+.foodTable table tr th {
+    font-size: 40px;
     padding: 10px 20px;
+    word-break: keep-all;
+    word-wrap: break-word;
 }
-.FOODJSON{
-    padding: 15px 10px;
-    white-space: normal;
+
+.foodTable table tr td {
+    font-size: 30px;
+    padding: 10px 20px;
+    word-break: keep-all;
+    word-wrap: break-word;
+}
+
+.FOODJSON {
+    font-size: 30px;
+    padding: 10px 20px;
 }

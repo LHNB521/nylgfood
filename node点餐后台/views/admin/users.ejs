@@ -10,40 +10,58 @@
     <script src="/admin/js/users.js"></script>
 </head>
 
-<body style="background-color: #F6F6F6;">
+<body>
     <% include common/top.ejs%>
         <div class="userDiv">
             <div class="userTable">
                 <div class="userAdd">
-                    <button onclick="userAddChick('add')">添加</button>
+                    <div class="button" onclick="userAddChick('add')">
+                        <img src="https://cdn.jsdelivr.net/gh/521129/Jsd@main/xiaochengxu/addUser.png" width="50px"
+                            height="50px" alt="添加管理员" title="添加管理员">
+                    </div>
                 </div>
+                <div style="clear: both;"></div>
                 <table border="1" cellspacing="0">
                     <tr>
+                        <th>头像</th>
                         <th>管理员昵称</th>
+                        <th>职位</th>
                         <th>操作</th>
                     </tr>
                     <%for(var i=0;i<usersData.length;i++){%>
                         <tr>
                             <td>
+                                <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F45%2Fc1%2F4e%2F45c14ee9d68278b7f7a042e832feccfd.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1654341725&t=76d2e9eb3f53c52fc3de250a51ef63ab"
+                                    width="50px" height="50px" alt="">
+                            </td>
+
+                            <td>
                                 <%=usersData[i].NICKNAME%>
                             </td>
                             <td>
+                                <span>管理员</span>
+                            </td>
+                            <td>
                                 <a href="?action=del&id=<%=usersData[i].CUSID%>" onclick="return confirm('确定删除？')">
-                                    <button>删除</button>
+                                    <img src="https://cdn.jsdelivr.net/gh/521129/Jsd@main/xiaochengxu/delete.png"
+                                        width="40px" height="40px" alt="删除" title="删除">
                                 </a>
                             </td>
                         </tr>
-                    <%}%>
+                        <%}%>
                 </table>
             </div>
         </div>
-        <div class="userAddChick"> 
+        <div class="userAddChick">
             <h3 style="text-align: center;">添加管理员</h3>
-            <div style="margin: 20px 0px 20px 0px;">
+            <div>
                 <form action="#" method="post">
                     <div>
                         <span>新管理员账号：</span>
-                        <input type="text" name="cusid" placeholder="请输入微信号" style="height: 25px;" >
+                        <input type="text" name="cusid" placeholder="请输入账号" style="height: 25px;">
+                        <br>
+                        <span>新管理员密码：</span>
+                        <input type="text" name="password" placeholder="密码" style="height: 25px;">
                     </div>
                     <div class="userAddChickButton userAddChickButtonAdd">
                         <button onclick="userAddChick('close')">添加</button>
