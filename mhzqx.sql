@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 20/04/2022 02:55:30
+ Date: 23/05/2022 12:33:41
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,13 @@ CREATE TABLE `cusorders`  (
   PRIMARY KEY (`ORDERNUM`) USING BTREE,
   INDEX `FK_Relationship_5`(`CUSID`) USING BTREE,
   CONSTRAINT `FK_Relationship_5` FOREIGN KEY (`CUSID`) REFERENCES `customer` (`CUSID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cusorders
+-- ----------------------------
+INSERT INTO `cusorders` VALUES ('6d8b8890-cdd2-11ec-a613-fb70f3715e77', 'a5c9535e-c704-449b-b52e-3ac55e774c15', 10, 1, 3.00, 0000000063, '李浩', 10086, '12号宿舍4楼', '[{\"num\": 1, \"name\": \"米饭\"}, {\"num\": 1, \"name\": \"馒头\"}]');
+INSERT INTO `cusorders` VALUES ('414c5d80-cdd3-11ec-a613-fb70f3715e77', 'a5c9535e-c704-449b-b52e-3ac55e774c15', 5, 1, 2.00, 0000000064, '李浩', 10086, '12号宿舍4楼', '[{\"num\": 1, \"name\": \"米饭\"}]');
 
 -- ----------------------------
 -- Table structure for customer
@@ -65,7 +71,7 @@ CREATE TABLE `goods`  (
   `GPRICE` decimal(10, 2) NULL DEFAULT NULL,
   `GSTATE` int(0) NULL DEFAULT NULL,
   `GCONTENT` text CHARACTER SET utf8 COLLATE utf8_bin NULL,
-  `GIMG` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `GIMG` json NULL,
   `GTIME` int(0) NULL DEFAULT NULL COMMENT '需要时间（单位：分钟）',
   `GCOUNT` int(0) NULL DEFAULT 0,
   `GINFO` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
@@ -77,9 +83,11 @@ CREATE TABLE `goods`  (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('3080b781-c754-489c-884f-3552965a3b77', '2', '鱼香肉丝', 12.00, 1, '周一到周五', 'ncdfRG5LU2Ib6d26bcfed657a3d1f69fd98bd5cde4c7.jpg', 5, 0, '好吃的很呢');
-INSERT INTO `goods` VALUES ('8abc9d44-92d9-49d8-8628-08bba23f3d63', '4', '苹果', 1.00, 1, '周一到周五', 'zZs9k7bX2hCWc471e6941eec07af9f50270c0c1c937a.jpg', 5, 0, '新鲜');
-INSERT INTO `goods` VALUES ('d0815e8a-ae8d-4bf7-aaeb-08cfac117e61', '1', '米饭', 3.00, 1, '周一到周五', '9JV2O4vRoedw1d320870e88f80d427c8c8b3cc96f2f4.jpg', 5, 0, '白白大米饭，好吃不贵，经济实惠。');
+INSERT INTO `goods` VALUES ('563c455a-ce76-495f-a1a4-cc700dd1d2e1', '4', '橘子', 2.00, 1, '每天', '{\"img\": \"yDznI69J1QzTcaa493d44387eb80dd2ff8af72d4dfec.jpg\", \"imgList\": [\"U4cPGfq0tBhQ55806c35bafa63c7485a6b6166d25b38.webp\", \"op2tfM9ECEPz55806c35bafa63c7485a6b6166d25b38.webp\", \"s8gADR1onZZx1d320870e88f80d427c8c8b3cc96f2f4.jpg\", \"83FNEtn9HIse1d320870e88f80d427c8c8b3cc96f2f4.jpg\", \"05u4mLmPMeq360ac2ac9a41e5d30ca3ca7f0b093a386.webp\", \"VWREMtD09fxYae913418eaff34107926648065f03e88.webp\", \"Yt0Izro2ryPF9bc60e557e17a0aa6f81b22511c24b41.webp\"]}', 5, 0, '新鲜');
+INSERT INTO `goods` VALUES ('87614372-7f9b-4b94-9cab-c7be196a69ce', '2', '否跳墙', 99.00, 1, '每天', '{\"img\": \"JOnZRRLlrf1U60ac2ac9a41e5d30ca3ca7f0b093a386.webp\", \"imgList\": [\"U4cPGfq0tBhQ55806c35bafa63c7485a6b6166d25b38.webp\", \"op2tfM9ECEPz55806c35bafa63c7485a6b6166d25b38.webp\", \"s8gADR1onZZx1d320870e88f80d427c8c8b3cc96f2f4.jpg\", \"83FNEtn9HIse1d320870e88f80d427c8c8b3cc96f2f4.jpg\", \"05u4mLmPMeq360ac2ac9a41e5d30ca3ca7f0b093a386.webp\"]}', 5, 0, '否跳墙+米饭');
+INSERT INTO `goods` VALUES ('88b026c3-2f8d-4a5b-91f5-a8f9e5e1f736', '1', '米饭', 2.00, 1, '每天', '{\"img\": \"TpTZIVQHZFsU1d320870e88f80d427c8c8b3cc96f2f4.jpg\", \"imgList\": [\"U4cPGfq0tBhQ55806c35bafa63c7485a6b6166d25b38.webp\", \"op2tfM9ECEPz55806c35bafa63c7485a6b6166d25b38.webp\", \"s8gADR1onZZx1d320870e88f80d427c8c8b3cc96f2f4.jpg\"]}', 5, 0, '东北大米');
+INSERT INTO `goods` VALUES ('d69fe6ff-47cc-4eaf-b704-ed72f054e745', '2', '宫保鸡丁', 15.00, 1, '每天', '{\"img\": \"W0ttRXzeW9Zz8b22d7df4234419a3f54c4b695bc6d32.webp\", \"imgList\": []}', 5, 0, '好吃');
+INSERT INTO `goods` VALUES ('da7511ee-dff6-4cb7-92cc-2e54ee794be5', '1', '馒头', 1.00, 1, '每天', '{\"img\": \"F4GlCp24HHbi55806c35bafa63c7485a6b6166d25b38.webp\", \"imgList\": [\"U4cPGfq0tBhQ55806c35bafa63c7485a6b6166d25b38.webp\", \"op2tfM9ECEPz55806c35bafa63c7485a6b6166d25b38.webp\"]}', 5, 0, '小麦馒头');
 
 -- ----------------------------
 -- Table structure for goodstype
@@ -120,13 +128,15 @@ CREATE TABLE `orderdetail`  (
 -- ----------------------------
 -- Records of orderdetail
 -- ----------------------------
-INSERT INTO `orderdetail` VALUES ('8abc9d44-92d9-49d8-8628-08bba23f3d63', 'fbab13c0-bda1-11ec-805a-233fc87adf2d', '苹果', 2.00, '1', 5);
-INSERT INTO `orderdetail` VALUES ('8abc9d44-92d9-49d8-8628-08bba23f3d63', '2f19c660-bda3-11ec-a6e3-b1881811c844', '苹果', 2.00, '1', 5);
-INSERT INTO `orderdetail` VALUES ('8abc9d44-92d9-49d8-8628-08bba23f3d63', '817d6380-bda3-11ec-a4cb-2d7d3e3c4f93', '苹果', 2.00, '1', 5);
-INSERT INTO `orderdetail` VALUES ('8abc9d44-92d9-49d8-8628-08bba23f3d63', 'bfee6d10-bda5-11ec-870b-cf08426719c5', '苹果', 2.00, '1', 5);
-INSERT INTO `orderdetail` VALUES ('8abc9d44-92d9-49d8-8628-08bba23f3d63', 'e303ca60-bda6-11ec-bba2-aff00e1e3363', '苹果', 2.00, '1', 5);
-INSERT INTO `orderdetail` VALUES ('8abc9d44-92d9-49d8-8628-08bba23f3d63', 'e45c2e70-bda6-11ec-bba2-aff00e1e3363', '苹果', 2.00, '1', 5);
-INSERT INTO `orderdetail` VALUES ('8abc9d44-92d9-49d8-8628-08bba23f3d63', 'e5a8aba0-bda6-11ec-bba2-aff00e1e3363', '苹果', 2.00, '1', 5);
+INSERT INTO `orderdetail` VALUES ('d69fe6ff-47cc-4eaf-b704-ed72f054e745', 'c5290a50-c148-11ec-a34a-21dcfaf08063', '222', 2.00, '222', 5);
+INSERT INTO `orderdetail` VALUES ('87614372-7f9b-4b94-9cab-c7be196a69ce', 'a6487180-c151-11ec-a34a-21dcfaf08063', '否跳墙', 1.00, '99', 5);
+INSERT INTO `orderdetail` VALUES ('da7511ee-dff6-4cb7-92cc-2e54ee794be5', '936a9b40-cc75-11ec-b7b6-616bc4baed77', '馒头', 1.00, '1', 5);
+INSERT INTO `orderdetail` VALUES ('da7511ee-dff6-4cb7-92cc-2e54ee794be5', 'ad44f420-cc75-11ec-b7b6-616bc4baed77', '馒头', 1.00, '1', 5);
+INSERT INTO `orderdetail` VALUES ('d69fe6ff-47cc-4eaf-b704-ed72f054e745', 'ad44f420-cc75-11ec-b7b6-616bc4baed77', '宫保鸡丁', 1.00, '15', 5);
+INSERT INTO `orderdetail` VALUES ('563c455a-ce76-495f-a1a4-cc700dd1d2e1', 'ad44f420-cc75-11ec-b7b6-616bc4baed77', '橘子', 1.00, '2', 5);
+INSERT INTO `orderdetail` VALUES ('88b026c3-2f8d-4a5b-91f5-a8f9e5e1f736', '6d8b8890-cdd2-11ec-a613-fb70f3715e77', '米饭', 1.00, '2', 5);
+INSERT INTO `orderdetail` VALUES ('da7511ee-dff6-4cb7-92cc-2e54ee794be5', '6d8b8890-cdd2-11ec-a613-fb70f3715e77', '馒头', 1.00, '1', 5);
+INSERT INTO `orderdetail` VALUES ('88b026c3-2f8d-4a5b-91f5-a8f9e5e1f736', '414c5d80-cdd3-11ec-a613-fb70f3715e77', '米饭', 1.00, '2', 5);
 
 -- ----------------------------
 -- Table structure for overorder
@@ -140,7 +150,7 @@ CREATE TABLE `overorder`  (
   `ORDERTOTLEPRICE` decimal(10, 2) NULL DEFAULT NULL,
   `ORDERNUM` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ORDERNUM`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of overorder
@@ -157,6 +167,10 @@ INSERT INTO `overorder` VALUES ('308f7dd0-bda0-11ec-93ee-3ff4655aebd2', 'a5c9535
 INSERT INTO `overorder` VALUES ('e303ca60-bda6-11ec-bba2-aff00e1e3363', 'a5c9535e-c704-449b-b52e-3ac55e774c15', 10, 3, 2.00, 0000000047);
 INSERT INTO `overorder` VALUES ('e45c2e70-bda6-11ec-bba2-aff00e1e3363', 'a5c9535e-c704-449b-b52e-3ac55e774c15', 10, 3, 2.00, 0000000048);
 INSERT INTO `overorder` VALUES ('e5a8aba0-bda6-11ec-bba2-aff00e1e3363', 'a5c9535e-c704-449b-b52e-3ac55e774c15', 10, 3, 2.00, 0000000049);
+INSERT INTO `overorder` VALUES ('7875c450-c085-11ec-b0b8-23fe8e5a4fea', 'a5c9535e-c704-449b-b52e-3ac55e774c15', 5, 3, 3.00, 0000000050);
+INSERT INTO `overorder` VALUES ('c5290a50-c148-11ec-a34a-21dcfaf08063', 'a5c9535e-c704-449b-b52e-3ac55e774c15', 10, 3, 444.00, 0000000051);
+INSERT INTO `overorder` VALUES ('936a9b40-cc75-11ec-b7b6-616bc4baed77', 'a5c9535e-c704-449b-b52e-3ac55e774c15', 5, 3, 1.00, 0000000052);
+INSERT INTO `overorder` VALUES ('ad44f420-cc75-11ec-b7b6-616bc4baed77', 'a5c9535e-c704-449b-b52e-3ac55e774c15', 15, 3, 18.00, 0000000053);
 
 -- ----------------------------
 -- Table structure for roleright
@@ -190,7 +204,7 @@ CREATE TABLE `savemessage`  (
 -- ----------------------------
 -- Records of savemessage
 -- ----------------------------
-INSERT INTO `savemessage` VALUES ('a5c9535e-c704-449b-b52e-3ac55e774c15', '嗯嗯嗯', 213123888, '321344');
+INSERT INTO `savemessage` VALUES ('a5c9535e-c704-449b-b52e-3ac55e774c15', '李浩', 10086, '12号宿舍4楼');
 INSERT INTO `savemessage` VALUES ('fe316059-d2f4-44a9-9c71-099c394ba5c3', '小浩', 2231388, '111000');
 
 -- ----------------------------
@@ -208,9 +222,8 @@ CREATE TABLE `syscus`  (
 -- ----------------------------
 -- Records of syscus
 -- ----------------------------
-INSERT INTO `syscus` VALUES ('123', '123', 'false', 123);
+INSERT INTO `syscus` VALUES ('123', '123', 'false', 456);
 INSERT INTO `syscus` VALUES ('a5c9535e-c704-449b-b52e-3ac55e774c15', '李浩', 'true', 123);
-INSERT INTO `syscus` VALUES ('qeqweqdsadsaoww', '21', 'false', 123);
 
 -- ----------------------------
 -- Table structure for sysfunction
